@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{name}} — case study · We Make Websites</title>
+  <meta name="description" content="{{lede}}">
+  <script>document.documentElement.classList.add('js');try{var t=new URLSearchParams(location.search).get('theme')||sessionStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/site.css">
+</head>
+<body>
+<main>
+  <header class="bar">
+    <a class="wordmark" href="../">wemakewebsites.work</a>
+    <nav aria-label="Main">
+      <button class="menu-word" aria-expanded="false">Menu</button>
+      <ul>
+        <li><a class="link" href="../#work">Work</a></li>
+        <li><a class="link" href="../#packages">Packages</a></li>
+        <li><a class="link" href="../#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="case-hero" aria-labelledby="case-title" data-stagger>
+    <h1 id="case-title" class="display" data-reveal>{{name}}</h1>
+    <p class="lede" data-reveal>{{lede}}</p>
+    <a class="button case-cta" href="{{url}}" rel="noopener" data-reveal>Visit {{host}}</a>
+    <dl class="facts" data-reveal>
+{{facts}}
+    </dl>
+  </section>
+
+  <section class="case-film" aria-label="The site in motion">
+    <figure>
+      <video data-autoplay muted loop playsinline preload="metadata" poster="../img/work/{{media}}-desktop-poster.jpg" aria-label="Scrolling through {{host}} on a laptop">
+        <source src="../img/work/{{media}}-desktop.mp4" type="video/mp4">
+      </video>
+      <figcaption>{{host}} on a laptop, top to bottom. <a class="link" href="{{url}}" rel="noopener">Visit the live site ↗</a></figcaption>
+    </figure>
+    <figure class="phone">
+      <video data-autoplay muted loop playsinline preload="metadata" poster="../img/work/{{media}}-phone-poster.jpg" aria-label="Scrolling through {{host}} on a phone">
+        <source src="../img/work/{{media}}-phone.mp4" type="video/mp4">
+      </video>
+      <figcaption>On a phone.</figcaption>
+    </figure>
+  </section>
+
+  <section class="chapter" aria-labelledby="c1">
+    <h2 id="c1" data-reveal>Where they started</h2>
+    <div class="body" data-reveal>
+      {{problem}}
+    </div>
+  </section>
+  <section class="chapter" aria-labelledby="c2">
+    <h2 id="c2" data-reveal>What we built</h2>
+    <div class="body" data-reveal>
+      {{built}}
+    </div>
+  </section>
+  <section class="stills" aria-labelledby="stills-title">
+    <h2 id="stills-title" class="section-title" data-reveal>Three moments</h2>
+    <div class="stills-row" data-stagger>
+      <img data-reveal src="../img/work/{{media}}-still-0060.jpg" width="1280" height="800" alt="{{name}} site, a third of the way down" loading="lazy">
+      <img data-reveal src="../img/work/{{media}}-still-0105.jpg" width="1280" height="800" alt="{{name}} site, two thirds of the way down" loading="lazy">
+      <img data-reveal src="../img/work/{{media}}-still-0130.jpg" width="1280" height="800" alt="{{name}} site, near the end" loading="lazy">
+    </div>
+  </section>
+
+  <section class="chapter" aria-labelledby="c3">
+    <h2 id="c3" data-reveal>What changed</h2>
+    <div class="body" data-reveal>
+      {{changed}}
+    </div>
+  </section>
+
+  <section class="next-band" aria-labelledby="next-title">
+    <h2 id="next-title"><a class="display link" href="{{next_slug}}.html">Next: {{next_name}} →</a></h2>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-cols">
+    <ul><li>Studio</li><li>wemakewebsites.work</li></ul>
+    <ul><li>Pages</li><li><a href="../#work">Work</a></li><li><a href="../#packages">Packages</a></li><li><a href="../#contact">Contact</a></li></ul>
+    <ul><li>Case studies</li><li><a href="nick-daulton.html">Nick Daulton</a></li><li><a href="workwonder.html">Workwonder</a></li></ul>
+    <ul><li>Contact</li><li><a href="mailto:hello@wemakewebsites.work">hello@wemakewebsites.work</a></li><li>Replies within a day</li></ul>
+  </div>
+  <div></div>
+  <div>
+    <div class="footer-mark" aria-hidden="true">
+      <svg viewBox="0 0 1700 150" preserveAspectRatio="xMidYMax meet"><text x="0" y="146" font-size="200" textLength="1700" lengthAdjust="spacingAndGlyphs">WEMAKEWEBSITES.WORK</text></svg>
+    </div>
+    <p class="legal"><span>© 2026 We Make Websites</span><span>Text in [brackets] is waiting on the client.</span></p>
+  </div>
+</footer>
+<script src="../js/site.js"></script>
+</body>
+</html>

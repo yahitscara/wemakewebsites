@@ -1,0 +1,7 @@
+tools/frames/
+node_modules/
+.DS_Store
+Thumbs.db
+tools/orig-videos/
+tools/sanitize.py
+.taste-skill/
