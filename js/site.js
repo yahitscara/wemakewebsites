@@ -161,13 +161,37 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   });
 })();
 
+// Light / dark toggle. Starts from the system setting; a click is remembered on this device.
+(() => {
+  const btn = document.querySelector('.mode-toggle');
+  if (!btn) return;
+  const root = document.documentElement;
+  const label = btn.querySelector('.mode-label');
+  const sync = () => {
+    const next = root.dataset.mode === 'dark' ? 'Light' : 'Dark';
+    label.textContent = next;
+    btn.setAttribute('aria-label', `Switch to ${next.toLowerCase()} mode`);
+  };
+  btn.addEventListener('click', () => {
+    root.dataset.mode = root.dataset.mode === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('mode', root.dataset.mode); } catch {}
+    sync();
+  });
+  // Follow the system if it changes and the visitor hasn't chosen.
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    let chosen = null; try { chosen = localStorage.getItem('mode'); } catch {}
+    if (!chosen) { root.dataset.mode = e.matches ? 'dark' : 'light'; sync(); }
+  });
+  sync();
+})();
+
 // Colour scheme tester: ?themes shows a picker; ?theme=<name> sets one. Remembered for this tab only.
 (() => {
   const q = new URLSearchParams(location.search);
   let saved = null; try { saved = sessionStorage.getItem('theme'); } catch {}
   if (!q.has('themes') && !q.has('theme') && !saved) return;
   const root = document.documentElement;
-  const themes = { oxblood: '#7d0c14', forest: '#1f4a33', navy: '#1c2f6b', tomato: '#c8431f', slate: '#23292b', plum: '#4b1d48' };
+  const themes = { oxblood: '#7d0c14', forest: '#1f4a33', navy: '#1c2f6b', tomato: '#b23a1a', slate: '#23292b', plum: '#4b1d48' };
   const bar = document.createElement('div');
   bar.className = 'theme-picker'; bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', 'Colour scheme');
   for (const [name, colour] of Object.entries(themes)) {

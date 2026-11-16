@@ -3,6 +3,7 @@
    ground warmed a step toward mid-grey on request ("not black or white, somewhere in between"). */
 
 :root {
+  color-scheme: light;
   --bg: #d6d4cf;
   --surface: #cac7c1;
   --ink: #7d0c14;
@@ -11,7 +12,7 @@
   --accent-ink: #ecebe7;
   --field: #7d0c14;
   --field-ink: #e4e2dd;
-  --field-soft: #c9a3a6;
+  --field-soft: #dcbcbe;
   --field-input: #8f1d25;
   --field-deep: #3f0509;
 
@@ -79,7 +80,7 @@ ul, ol { padding: 0; list-style: none; }
   transition: text-decoration-color var(--t-hover) ease;
 }
 @media (hover: hover) and (pointer: fine) {
-  .button:hover { background: var(--field-deep); }
+  .button:hover { background: color-mix(in srgb, var(--accent) 84%, var(--bg)); }
   .link:hover { text-decoration-color: currentColor; }
 }
 
@@ -91,7 +92,18 @@ ul, ol { padding: 0; list-style: none; }
   font-size: var(--step-body);
 }
 .bar .wordmark { font-weight: 600; text-decoration: none; }
+.bar nav { display: flex; align-items: baseline; gap: 28px; }
 .bar nav ul { display: flex; gap: 28px; }
+.mode-toggle {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin: -12px 0; padding: 0 14px;
+  background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border: 2px solid var(--ink); border-radius: 999px; /* taste-skill-ignore: pill toggle */
+  color: var(--ink); font: 600 var(--step-small) var(--font); white-space: nowrap; cursor: pointer;
+}
+@media (max-width: 720px) { .bar nav { gap: 10px; } .mode-toggle { padding: 0 12px; } }
+.mode-toggle .dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid currentColor; background: currentColor; }
+:root[data-mode="dark"] .mode-toggle .dot { background: transparent; }
+.mode-toggle:active { transform: scale(0.96); }
 .bar nav a { text-decoration: none; }
 .menu-word { display: none; }
 @media (max-width: 720px) {
@@ -400,12 +412,20 @@ main { position: relative; z-index: 1; background: var(--bg); }
   .js [data-reveal].is-in { opacity: 1; transform: none; }
 }
 
-/* ---------- colour schemes to try: add ?theme=forest (etc.) to the URL, or ?themes for a picker ---------- */
-:root[data-theme="forest"] { --bg:#d3d6cf; --surface:#c5c9c0; --ink:#1f4a33; --muted:#4f6457; --accent:#1f4a33; --accent-ink:#e8ebe5; --field:#1f4a33; --field-ink:#e2e6df; --field-soft:#a9bfb0; --field-input:#2c5a41; --field-deep:#0e2a1c; }
-:root[data-theme="navy"]   { --bg:#d4d5d8; --surface:#c6c8cd; --ink:#1c2f6b; --muted:#4b5574; --accent:#1c2f6b; --accent-ink:#e6e8ee; --field:#1c2f6b; --field-ink:#e2e4ea; --field-soft:#a7b0cc; --field-input:#2a3f80; --field-deep:#0b1638; }
-:root[data-theme="tomato"] { --bg:#dcd5c8; --surface:#cfc6b6; --ink:#2b2622; --muted:#6a5f55; --accent:#c8431f; --accent-ink:#fbf4ea; --field:#c8431f; --field-ink:#fbf1e6; --field-soft:#f3c2ad; --field-input:#d65d39; --field-deep:#5e1a06; }
-:root[data-theme="slate"]  { --bg:#cdd0cf; --surface:#bfc3c2; --ink:#23292b; --muted:#555e60; --accent:#23292b; --accent-ink:#e8c35a; --field:#2f3a3d; --field-ink:#ecd27f; --field-soft:#9aa6a8; --field-input:#3c494c; --field-deep:#161c1e; }
-:root[data-theme="plum"]   { --bg:#d8d3d6; --surface:#cbc4c8; --ink:#4b1d48; --muted:#6c5068; --accent:#4b1d48; --accent-ink:#efe8ec; --field:#4b1d48; --field-ink:#efe6ec; --field-soft:#c5a9c1; --field-input:#5c2b58; --field-deep:#250b23; }
+/* ---------- colour schemes: every palette has a light and a dark version (all text pairs ≥ 4.5:1).
+   Light/dark follows the system until the visitor uses the toggle. ?themes shows a palette picker. ---------- */
+@media (prefers-color-scheme: dark) { :root:not([data-mode="light"]) { color-scheme: dark; --bg:#1b1617; --surface:#262021; --ink:#f0aaa8; --muted:#bf9e9d; --accent:#e57b7f; --accent-ink:#1c0e0f; --field:#5c0f16; --field-ink:#f6e4e3; --field-soft:#d4a2a4; --field-input:#701b23; --field-deep:#2a0508; } }
+:root[data-mode="dark"] { color-scheme: dark; --bg:#1b1617; --surface:#262021; --ink:#f0aaa8; --muted:#bf9e9d; --accent:#e57b7f; --accent-ink:#1c0e0f; --field:#5c0f16; --field-ink:#f6e4e3; --field-soft:#d4a2a4; --field-input:#701b23; --field-deep:#2a0508; }
+:root[data-theme="forest"] { --bg:#d3d6cf; --surface:#c5c9c0; --ink:#1f4a33; --muted:#46594d; --accent:#1f4a33; --accent-ink:#e8ebe5; --field:#1f4a33; --field-ink:#e2e6df; --field-soft:#bcd0c2; --field-input:#2c5a41; --field-deep:#0e2a1c; }
+:root[data-theme="forest"][data-mode="dark"] { --bg:#141a16; --surface:#1e2620; --ink:#a9d8b8; --muted:#93ab9c; --accent:#74c290; --accent-ink:#0c1a11; --field:#1d3d2a; --field-ink:#e1eee4; --field-soft:#9dbca8; --field-input:#285035; --field-deep:#0a1a10; }
+:root[data-theme="navy"] { --bg:#d4d5d8; --surface:#c6c8cd; --ink:#1c2f6b; --muted:#4b5574; --accent:#1c2f6b; --accent-ink:#e6e8ee; --field:#1c2f6b; --field-ink:#e2e4ea; --field-soft:#a7b0cc; --field-input:#2a3f80; --field-deep:#0b1638; }
+:root[data-theme="navy"][data-mode="dark"] { --bg:#13161f; --surface:#1d212d; --ink:#b9c7f5; --muted:#98a2c0; --accent:#86a0f0; --accent-ink:#0b1230; --field:#1f2c5c; --field-ink:#e4e9f8; --field-soft:#a3aed4; --field-input:#2a3a72; --field-deep:#0a1230; }
+:root[data-theme="tomato"] { --bg:#dcd5c8; --surface:#cfc6b6; --ink:#2b2622; --muted:#645a50; --accent:#b23a1a; --accent-ink:#fbf4ea; --field:#b23a1a; --field-ink:#fbf1e6; --field-soft:#f6d6c9; --field-input:#a5381a; --field-deep:#5e1a06; }
+:root[data-theme="tomato"][data-mode="dark"] { --bg:#1d1a17; --surface:#29241f; --ink:#efe6da; --muted:#b5a797; --accent:#ee7049; --accent-ink:#1d0b04; --field:#9b3218; --field-ink:#fdeee3; --field-soft:#f6d3c4; --field-input:#8f2c14; --field-deep:#4a1405; }
+:root[data-theme="slate"] { --bg:#cdd0cf; --surface:#bfc3c2; --ink:#23292b; --muted:#4f585a; --accent:#23292b; --accent-ink:#ecd27f; --field:#2f3a3d; --field-ink:#ecd27f; --field-soft:#b8c2c4; --field-input:#3c494c; --field-deep:#161c1e; }
+:root[data-theme="slate"][data-mode="dark"] { --bg:#161a1b; --surface:#212628; --ink:#e6e9e9; --muted:#a0a9ab; --accent:#e8c35a; --accent-ink:#1a1606; --field:#2b3437; --field-ink:#ecd27f; --field-soft:#a5b0b2; --field-input:#364245; --field-deep:#0e1213; }
+:root[data-theme="plum"] { --bg:#d8d3d6; --surface:#cbc4c8; --ink:#4b1d48; --muted:#6a4e66; --accent:#4b1d48; --accent-ink:#efe8ec; --field:#4b1d48; --field-ink:#efe6ec; --field-soft:#c9adc5; --field-input:#5c2b58; --field-deep:#250b23; }
+:root[data-theme="plum"][data-mode="dark"] { --bg:#1a1419; --surface:#251d24; --ink:#ebbde5; --muted:#b69cb1; --accent:#d891cf; --accent-ink:#22091f; --field:#4b1d48; --field-ink:#f5e9f2; --field-soft:#cdabc7; --field-input:#5c2b58; --field-deep:#1c0619; }
 .theme-picker {
   position: fixed; left: 12px; bottom: 12px; z-index: 50; display: flex; gap: 6px; padding: 6px;
   background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
