@@ -1,20 +1,20 @@
 /* wemakewebsites.work
-   Direction: "The name as a monument" (tasteskill seed 1169197259), palette Oxblood and grey,
+   Direction: "The name as a monument" (tasteskill seed 1169197259), palette Oxblood and grey (now plum by default, light mode first),
    ground warmed a step toward mid-grey on request ("not black or white, somewhere in between"). */
 
 :root {
   color-scheme: light;
-  --bg: #d6d4cf;
-  --surface: #cac7c1;
-  --ink: #7d0c14;
-  --muted: #74474b;
-  --accent: #7d0c14;
-  --accent-ink: #ecebe7;
-  --field: #7d0c14;
-  --field-ink: #e4e2dd;
-  --field-soft: #dcbcbe;
-  --field-input: #8f1d25;
-  --field-deep: #3f0509;
+  --bg: #d8d3d6;
+  --surface: #cbc4c8;
+  --ink: #4b1d48;
+  --muted: #6a4e66;
+  --accent: #4b1d48;
+  --accent-ink: #efe8ec;
+  --field: #4b1d48;
+  --field-ink: #efe6ec;
+  --field-soft: #c9adc5;
+  --field-input: #5c2b58;
+  --field-deep: #250b23;
 
   --font: "Archivo", "Arial Narrow", Arial, sans-serif;
   --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
@@ -413,9 +413,8 @@ main { position: relative; z-index: 1; background: var(--bg); }
 }
 
 /* ---------- colour schemes: every palette has a light and a dark version (all text pairs ≥ 4.5:1).
-   Light/dark follows the system until the visitor uses the toggle. ?themes shows a palette picker. ---------- */
-@media (prefers-color-scheme: dark) { :root:not([data-mode="light"]) { color-scheme: dark; --bg:#1b1617; --surface:#262021; --ink:#f0aaa8; --muted:#bf9e9d; --accent:#e57b7f; --accent-ink:#1c0e0f; --field:#5c0f16; --field-ink:#f6e4e3; --field-soft:#d4a2a4; --field-input:#701b23; --field-deep:#2a0508; } }
-:root[data-mode="dark"] { color-scheme: dark; --bg:#1b1617; --surface:#262021; --ink:#f0aaa8; --muted:#bf9e9d; --accent:#e57b7f; --accent-ink:#1c0e0f; --field:#5c0f16; --field-ink:#f6e4e3; --field-soft:#d4a2a4; --field-input:#701b23; --field-deep:#2a0508; }
+   Light mode by default; the header toggle switches and is remembered. ?themes shows a palette picker. ---------- */
+:root[data-mode="dark"] { color-scheme: dark; --bg:#1a1419; --surface:#251d24; --ink:#ebbde5; --muted:#b69cb1; --accent:#d891cf; --accent-ink:#22091f; --field:#4b1d48; --field-ink:#f5e9f2; --field-soft:#cdabc7; --field-input:#5c2b58; --field-deep:#1c0619; }
 :root[data-theme="forest"] { --bg:#d3d6cf; --surface:#c5c9c0; --ink:#1f4a33; --muted:#46594d; --accent:#1f4a33; --accent-ink:#e8ebe5; --field:#1f4a33; --field-ink:#e2e6df; --field-soft:#bcd0c2; --field-input:#2c5a41; --field-deep:#0e2a1c; }
 :root[data-theme="forest"][data-mode="dark"] { --bg:#141a16; --surface:#1e2620; --ink:#a9d8b8; --muted:#93ab9c; --accent:#74c290; --accent-ink:#0c1a11; --field:#1d3d2a; --field-ink:#e1eee4; --field-soft:#9dbca8; --field-input:#285035; --field-deep:#0a1a10; }
 :root[data-theme="navy"] { --bg:#d4d5d8; --surface:#c6c8cd; --ink:#1c2f6b; --muted:#4b5574; --accent:#1c2f6b; --accent-ink:#e6e8ee; --field:#1c2f6b; --field-ink:#e2e4ea; --field-soft:#a7b0cc; --field-input:#2a3f80; --field-deep:#0b1638; }
@@ -424,8 +423,8 @@ main { position: relative; z-index: 1; background: var(--bg); }
 :root[data-theme="tomato"][data-mode="dark"] { --bg:#1d1a17; --surface:#29241f; --ink:#efe6da; --muted:#b5a797; --accent:#ee7049; --accent-ink:#1d0b04; --field:#9b3218; --field-ink:#fdeee3; --field-soft:#f6d3c4; --field-input:#8f2c14; --field-deep:#4a1405; }
 :root[data-theme="slate"] { --bg:#cdd0cf; --surface:#bfc3c2; --ink:#23292b; --muted:#4f585a; --accent:#23292b; --accent-ink:#ecd27f; --field:#2f3a3d; --field-ink:#ecd27f; --field-soft:#b8c2c4; --field-input:#3c494c; --field-deep:#161c1e; }
 :root[data-theme="slate"][data-mode="dark"] { --bg:#161a1b; --surface:#212628; --ink:#e6e9e9; --muted:#a0a9ab; --accent:#e8c35a; --accent-ink:#1a1606; --field:#2b3437; --field-ink:#ecd27f; --field-soft:#a5b0b2; --field-input:#364245; --field-deep:#0e1213; }
-:root[data-theme="plum"] { --bg:#d8d3d6; --surface:#cbc4c8; --ink:#4b1d48; --muted:#6a4e66; --accent:#4b1d48; --accent-ink:#efe8ec; --field:#4b1d48; --field-ink:#efe6ec; --field-soft:#c9adc5; --field-input:#5c2b58; --field-deep:#250b23; }
-:root[data-theme="plum"][data-mode="dark"] { --bg:#1a1419; --surface:#251d24; --ink:#ebbde5; --muted:#b69cb1; --accent:#d891cf; --accent-ink:#22091f; --field:#4b1d48; --field-ink:#f5e9f2; --field-soft:#cdabc7; --field-input:#5c2b58; --field-deep:#1c0619; }
+:root[data-theme="oxblood"] { --bg:#d6d4cf; --surface:#cac7c1; --ink:#7d0c14; --muted:#74474b; --accent:#7d0c14; --accent-ink:#ecebe7; --field:#7d0c14; --field-ink:#e4e2dd; --field-soft:#dcbcbe; --field-input:#8f1d25; --field-deep:#3f0509; }
+:root[data-theme="oxblood"][data-mode="dark"] { --bg:#1b1617; --surface:#262021; --ink:#f0aaa8; --muted:#bf9e9d; --accent:#e57b7f; --accent-ink:#1c0e0f; --field:#5c0f16; --field-ink:#f6e4e3; --field-soft:#d4a2a4; --field-input:#701b23; --field-deep:#2a0508; }
 .theme-picker {
   position: fixed; left: 12px; bottom: 12px; z-index: 50; display: flex; gap: 6px; padding: 6px;
   background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);

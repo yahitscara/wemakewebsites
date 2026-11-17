@@ -161,7 +161,7 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   });
 })();
 
-// Light / dark toggle. Starts from the system setting; a click is remembered on this device.
+// Light / dark toggle. Starts light; a click is remembered on this device.
 (() => {
   const btn = document.querySelector('.mode-toggle');
   if (!btn) return;
@@ -177,11 +177,6 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     try { localStorage.setItem('mode', root.dataset.mode); } catch {}
     sync();
   });
-  // Follow the system if it changes and the visitor hasn't chosen.
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    let chosen = null; try { chosen = localStorage.getItem('mode'); } catch {}
-    if (!chosen) { root.dataset.mode = e.matches ? 'dark' : 'light'; sync(); }
-  });
   sync();
 })();
 
@@ -191,15 +186,15 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let saved = null; try { saved = sessionStorage.getItem('theme'); } catch {}
   if (!q.has('themes') && !q.has('theme') && !saved) return;
   const root = document.documentElement;
-  const themes = { oxblood: '#7d0c14', forest: '#1f4a33', navy: '#1c2f6b', tomato: '#b23a1a', slate: '#23292b', plum: '#4b1d48' };
+  const themes = { plum: '#4b1d48', oxblood: '#7d0c14', forest: '#1f4a33', navy: '#1c2f6b', tomato: '#b23a1a', slate: '#23292b' };
   const bar = document.createElement('div');
   bar.className = 'theme-picker'; bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', 'Colour scheme');
   for (const [name, colour] of Object.entries(themes)) {
     const b = document.createElement('button');
     b.type = 'button'; b.title = name; b.setAttribute('aria-label', name); b.style.background = colour;
-    b.setAttribute('aria-pressed', String((root.dataset.theme || 'oxblood') === name));
+    b.setAttribute('aria-pressed', String((root.dataset.theme || 'plum') === name));
     b.addEventListener('click', () => {
-      if (name === 'oxblood') delete root.dataset.theme; else root.dataset.theme = name;
+      if (name === 'plum') delete root.dataset.theme; else root.dataset.theme = name;
       try { sessionStorage.setItem('theme', name); } catch {}
       bar.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
     });
