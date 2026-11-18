@@ -255,6 +255,10 @@ ul, ol { padding: 0; list-style: none; }
   padding: 0 var(--margin) 24px; scroll-padding-inline: var(--margin); scrollbar-width: none; cursor: grab;
 }
 .strip::-webkit-scrollbar { display: none; }
+/* Mouse: no snapping, so the strip stays under the pointer and glides freely. Touch keeps gentle snap. */
+@media (hover: hover) and (pointer: fine) { .strip { scroll-snap-type: none; } }
+.strip.dragging { cursor: grabbing; user-select: none; }
+.strip.gliding img { transform: none !important; }
 .strip figure { flex: none; width: max(18vw, 200px); scroll-snap-align: start; }
 .strip img {
   width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover; object-position: top;

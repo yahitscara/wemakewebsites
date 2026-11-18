@@ -98,14 +98,46 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   vids.forEach((v) => io.observe(v));
 })();
 
-// Concept strip: drag to scroll with a mouse.
+// Concept strip: grab and throw with a mouse. Follows the pointer 1:1, then glides to a stop.
+// Touch and trackpads keep the browser's own scrolling.
 (() => {
   const strip = document.querySelector('.strip');
   if (!strip) return;
-  let down = false, x0 = 0, s0 = 0;
-  strip.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; down = true; x0 = e.clientX; s0 = strip.scrollLeft; });
-  addEventListener('pointerup', () => { down = false; });
-  strip.addEventListener('pointermove', (e) => { if (down) strip.scrollLeft = s0 - (e.clientX - x0); });
+  let dragging = false, moved = 0, lastX = 0, lastT = 0, v = 0, raf = 0;
+  const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+  const glide = () => {
+    v *= 0.94; // friction per frame
+    if (Math.abs(v) < 0.05) { raf = 0; strip.classList.remove('gliding'); return; }
+    strip.scrollLeft -= v * 16;
+    raf = requestAnimationFrame(glide);
+  };
+  strip.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    stop();
+    dragging = true; moved = 0; v = 0; lastX = e.clientX; lastT = e.timeStamp;
+    strip.setPointerCapture(e.pointerId);
+    strip.classList.add('dragging', 'gliding');
+  });
+  strip.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - lastX, dt = Math.max(1, e.timeStamp - lastT);
+    strip.scrollLeft -= dx;
+    moved += Math.abs(dx);
+    v = 0.8 * (dx / dt) + 0.2 * v; // px per ms, lightly smoothed
+    lastX = e.clientX; lastT = e.timeStamp;
+  });
+  const release = (e) => {
+    if (!dragging) return;
+    dragging = false;
+    strip.classList.remove('dragging');
+    if (e.timeStamp - lastT > 80) v = 0; // held still before letting go: no throw
+    if (reduced || !v) { strip.classList.remove('gliding'); return; }
+    raf = requestAnimationFrame(glide);
+  };
+  strip.addEventListener('pointerup', release);
+  strip.addEventListener('pointercancel', release);
+  strip.addEventListener('wheel', stop, { passive: true });
+  strip.addEventListener('click', (e) => { if (moved > 5) { e.preventDefault(); e.stopPropagation(); } }, true);
   strip.addEventListener('dragstart', (e) => e.preventDefault());
 })();
 
