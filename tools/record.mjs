@@ -5,8 +5,8 @@ import { mkdirSync, rmSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 const sites = [['nickdaulton', 'https://nickdaultoncomics.com'], ['workwonder', 'https://workwonder.art']];
 const views = [['desktop', { width: 1280, height: 800 }], ['phone', { width: 390, height: 780, dsf: 1, mobile: true }]];
-// FRAMES=520 OUT=preview node tools/record.mjs  → half speed, written to preview/ instead of the live images.
-const FRAMES = +(process.env.FRAMES || 260), FPS = 15; // 260 frames ≈ 17 s
+// OUT=preview node tools/record.mjs  → writes to preview/ instead of the live images. FRAMES=260 is double speed.
+const FRAMES = +(process.env.FRAMES || 520), FPS = 15; // 520 frames ≈ 35 s: slow enough for everyone. Shrink after: desktop scale=1024, crf 30
 const OUT = process.env.OUT || 'img/work';
 const b = await Browser.launch();
 for (const [id, url] of sites) for (const [kind, vp] of views) {
